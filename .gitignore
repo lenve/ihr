@@ -20,3 +20,7 @@ logs/
 
 # CodeBuddy 工作区数据（本地会话/团队数据，勿上传）
 .codebuddy/
+
+# 本地文档（仅本机使用，不上传）
+CODEBUDDY.md
+proposal.md
