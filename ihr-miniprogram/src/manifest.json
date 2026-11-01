@@ -1,0 +1,36 @@
+{
+  "name": "iHR",
+  "appid": "",
+  "description": "iHR 智慧人力资源管理系统小程序端",
+  "versionName": "0.0.1",
+  "versionCode": "1",
+  "transformPx": false,
+  "app-plus": {
+    "usingComponents": true,
+    "nvueStyleCompiler": "uni-app",
+    "compilerVersion": 3,
+    "splashscreen": {
+      "alwaysShowBeforeRender": true,
+      "waiting": true,
+      "autoclose": true,
+      "delay": 0
+    }
+  },
+  "quickapp": {},
+  "mp-weixin": {
+    "appid": "",
+    "setting": {
+      "urlCheck": false,
+      "es6": true,
+      "minified": true
+    },
+    "usingComponents": true
+  },
+  "h5": {
+    "title": "iHR 小程序",
+    "router": {
+      "mode": "hash"
+    }
+  },
+  "vueVersion": "3"
+}

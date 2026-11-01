@@ -1,0 +1,22 @@
+# 依赖与构建产物
+node_modules/
+dist/
+target/
+unpackage/
+*.class
+*.jar
+!.mvn/wrapper/maven-wrapper.jar
+
+# IDE / 系统
+.idea/
+*.iml
+.vscode/
+.DS_Store
+*.local
+
+# 日志
+logs/
+*.log
+
+# CodeBuddy 工作区数据（本地会话/团队数据，勿上传）
+.codebuddy/

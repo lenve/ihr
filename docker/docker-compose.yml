@@ -1,0 +1,64 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: ihr-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_DATABASE: ihr
+      TZ: Asia/Shanghai
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_general_ci
+      - --default-time-zone=+08:00
+    ports:
+      # 宿主机 13306（避开本机已占用的 3306）
+      - "13306:3306"
+    volumes:
+      - ihr-mysql-data:/var/lib/mysql
+      - ./mysql/init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot123"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7
+    container_name: ihr-redis
+    restart: unless-stopped
+    command: ["redis-server", "--appendonly", "yes", "--requirepass", "redis123"]
+    ports:
+      # 宿主机 16379（避开本机已占用的 6379）
+      - "16379:6379"
+    volumes:
+      - ihr-redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "redis123", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  rabbitmq:
+    image: rabbitmq:3.12-management
+    container_name: ihr-rabbitmq
+    restart: unless-stopped
+    environment:
+      RABBITMQ_DEFAULT_USER: ihr
+      RABBITMQ_DEFAULT_PASS: rabbit123
+      TZ: Asia/Shanghai
+    ports:
+      - "56772:5672"    # AMQP（避开本机已占用的 5672）
+      - "15673:15672"   # 管理控制台（避开本机已占用的 15672）
+    volumes:
+      - ihr-rabbitmq-data:/var/lib/rabbitmq
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 15s
+      timeout: 10s
+      retries: 10
+
+volumes:
+  ihr-mysql-data:
+  ihr-redis-data:
+  ihr-rabbitmq-data:
